@@ -1,6 +1,8 @@
 // componentes React
 import appConfig from "../config.json";
 import { Box, Button, Text, TextField, Image } from "@skynexui/components";
+import React from "react";
+
 function GlobalStyle() {
   return (
     <style global jsx>{`
@@ -78,8 +80,9 @@ function Titulo(props) {
 //   export default HomePage
 
 export default function PaginaInicial() {
-  const username = "LuizNery-2";
-
+  // const username = "LuizNery-2";
+ const [username,setUsername] = React.useState("LuizNery-2");
+  
   return (
     <>
       <GlobalStyle />
@@ -139,6 +142,11 @@ export default function PaginaInicial() {
             </Text>
 
             <TextField
+              value={username}
+              onChange={function(event) {
+                const valor = event.target.value;
+                setUsername(valor)
+              }}
               fullWidth
               textFieldColors={{
                 neutral: {

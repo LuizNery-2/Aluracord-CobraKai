@@ -1,36 +1,10 @@
 // componentes React
 import appConfig from "../config.json";
 import { Box, Button, Text, TextField, Image } from "@skynexui/components";
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: "Open Sans", sans-serif;
-      }
-      /* App fit Height */
-      html,
-      body,
-      #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */
-    `}</style>
-  );
-}
+import {useRouter} from "next/router"
+import React from "react";
+
+
 
 function Titulo(props) {
     const Tag = props.tag || 'h1';
@@ -78,11 +52,13 @@ function Titulo(props) {
 //   export default HomePage
 
 export default function PaginaInicial() {
-  const username = "LuizNery-2";
-
+  // const username = "LuizNery-2";
+ const [username,setUsername] = React.useState("LuizNery-2");
+ const router = useRouter();
+  
   return (
     <>
-      <GlobalStyle />
+      
       <Box
         styleSheet={{
           display: "flex",
@@ -117,6 +93,11 @@ export default function PaginaInicial() {
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit = {function(event){
+              event.preventDefault();
+              router.push('/chat');
+
+            }}
             styleSheet={{
               display: "flex",
               flexDirection: "column",
@@ -139,6 +120,11 @@ export default function PaginaInicial() {
             </Text>
 
             <TextField
+              value={username}
+              onChange={function(event) {
+                const valor = event.target.value;
+                setUsername(valor)
+              }}
               fullWidth
               textFieldColors={{
                 neutral: {
